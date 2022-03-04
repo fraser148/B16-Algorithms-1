@@ -4,7 +4,7 @@
 
 int main(int argc, char** argv)
 {
-    auto A = std::vector<float>{0, 1, 2, 3, 4};
+    auto A = std::vector<float>{0, 1, 2, 79, 4.4, 4};
     print(A, "Initial array");
     while (!A.empty()) {
         array_delete(A, 0);

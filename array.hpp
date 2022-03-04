@@ -4,7 +4,7 @@
 #include <vector>
 
 template <typename T>
-void array_insert(std::vector<T>& A, size_t index, const T& x)
+void array_insert(std::vector<T>& A, std::size_t index, const T& x)
 {
     assert(index <= A.size());
     if (index == A.size()) {
