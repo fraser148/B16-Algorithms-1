@@ -12,6 +12,7 @@ int main(int argc, char** argv)
 
     // Dump the stack content
     std::cout << "Stack content:";
+    std::cout << stack.empty() << std::endl;
     while (!stack.empty()) {
         std::cout << ' ' << stack.top();
         stack.pop();
