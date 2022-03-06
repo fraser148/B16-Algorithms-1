@@ -10,7 +10,7 @@ public:
     StackEnhanced(size_t capacity) : Stack<T>::Stack(capacity) {};
 
     void clear() {
-        while(Stack<T>::_storage.empty() != 0) {
+        while(Stack<T>::empty() == 0) {
             Stack<T>::pop();
         }
     };

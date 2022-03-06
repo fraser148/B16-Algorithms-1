@@ -6,13 +6,12 @@ int main(int argc, char** argv)
 {
     auto stack = StackEnhanced<int>(100);
 
-    stack << 1 << 2 << 3;
+    stack = stack << 1 << 2 << 3;
     stack.clear();
-    stack << 4 << 5 << 6;
+    stack = stack << 4 << 5 << 6;
 
     // Dump the stack content
     std::cout << "Stack content:";
-    std::cout << stack.empty() << std::endl;
     while (!stack.empty()) {
         std::cout << ' ' << stack.top();
         stack.pop();
