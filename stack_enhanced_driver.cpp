@@ -6,9 +6,9 @@ int main(int argc, char** argv)
 {
     auto stack = StackEnhanced<int>(100);
 
-    stack = stack << 1 << 2 << 3;
+    stack  << 1 << 2 << 3;
     stack.clear();
-    stack = stack << 4 << 5 << 6;
+    stack << 4 << 5 << 6;
 
     // Dump the stack content
     std::cout << "Stack content:";

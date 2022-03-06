@@ -14,12 +14,14 @@ public:
             Stack<T>::pop();
         }
     };
+
+    StackEnhanced<T>& operator<<(const T& x) {
+        Stack<T>::push(x);
+        return *this;
+    };
+
 };
 
-template <typename T>
-auto operator<<(StackEnhanced<T> s, const T& x) {
-    s.Stack<T>::push(x);
-    return s;
-}
+//template <typename T>
 
 #endif  // __Estack__
