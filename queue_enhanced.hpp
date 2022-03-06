@@ -3,70 +3,62 @@
 
 #include <cassert>
 #include <vector>
+#include <iostream>
+#include "queue.hpp"
 
 template <typename T>
-class Dequeue
-{
-protected:
-    std::vector<T> _storage;
-    size_t _position;
-    size_t _size;
-
+class Dequeue : public Queue<T> {
 public:
-    // Create a queue with the specified capacity
-    Dequeue(size_t capacity) : _storage(capacity), _position{0}, _size{0} { assert(capacity > 0); }
-
-    // Access the element at the front of the queue
-    T& front() { return _storage[_head()]; }
-
-    // Const-access the element at the front of the queue
-    const T& front() const { return _storage[_head()]; }
-
+    Dequeue(size_t capacity) : Queue<T>::Queue(capacity) {};
+    
     // Copy an element at the back of the queue
-    void enqueue(const T& value) { _enqueue(value); }
+    void enqueue_front(const T& value) { _enqueue_front(value); }
 
     // Move an element at the back of the queue
-    void enqueue(T&& value) { _enqueue(std::move(value)); }
+    void enqueue_front(T&& value) { _enqueue_front(std::move(value)); }
 
     // Remove the element at the front of the queue
-    void dequeue()
-    {
-        assert(_size >= 1);
-        _size--;
-    }
-
-    // Check if the queue is empty
-    bool empty() const { return _size == 0; }
-
-    // Check if the queue is full
-    bool full() const { return _size == _storage.size(); }
-
-private:
-    // Enqueue by copying or moving
-    template <typename Q>
-    void _enqueue(Q&& x)
-    {
-        assert(_size < _storage.size());
-        _storage[_position] = std::forward<Q>(x);
-        _size++;
-        if (_position == 0) {
-            _position = _storage.size() - 1;
-        } else {
-            _position--;
+    void dequeue_front() {
+        assert(Queue<T>::_size >= 1);
+        Queue<T>::_size--;
+        Queue<T>::_position++;
+        if (Queue<T>::_position >= Queue<T>::_storage.size()) {
+            Queue<T>::_position -= Queue<T>::_storage.size();
         }
     }
 
+        // Access the element at the front of the queue
+    T& back() { return Queue<T>::_storage[_end()]; }
+
+    // Const-access the element at the front of the queue
+    const T& back() const { return Queue<T>::_storage[_end()]; }
+
+private:
+    template <typename Q>
+    void _enqueue_front(Q&& x)
+    {   
+        assert(Queue<T>::_size < Queue<T>::_storage.size());
+        Queue<T>::_storage[_front()] = std::forward<Q>(x);
+        Queue<T>::_size++;
+    }
 protected:
-    // Return the index of the element to the front of the queue.
-    size_t _head() const
-    {
-        assert(_size >= 1);
-        auto index = _position + _size;
-        if (index >= _storage.size()) {
-            index -= _storage.size();
+    size_t _front() const {
+        assert(Queue<T>::_size >= 0);
+        auto index = Queue<T>::_position + Queue<T>::_size + 1;
+        if (index >= Queue<T>::_storage.size()) {
+            index -= Queue<T>::_storage.size();
         }
         return index;
     }
+
+    size_t _end() const {
+        auto index = Queue<T>::_position + 1;
+        if (index >= Queue<T>::_storage.size()) {
+            index -= Queue<T>::_storage.size();
+        }
+        return index;
+    }
+
 };
 
 

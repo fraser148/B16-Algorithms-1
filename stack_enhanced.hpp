@@ -22,6 +22,4 @@ public:
 
 };
 
-//template <typename T>
-
 #endif  // __Estack__

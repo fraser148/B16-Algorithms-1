@@ -48,6 +48,9 @@ public:
 
     // Check if the stack is full
     bool full() const { return _head == _storage.size(); }
+
+    // Overload the << operator
+    Stack<T>& operator << (const T& x)
 };
 
 #endif  // __stack__
