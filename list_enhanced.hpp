@@ -1,9 +1,10 @@
-#ifndef __list__
-#define __list__
+#ifndef __Elist__
+#define __Elist__
 
 #include <cassert>
 #include <vector>
 #include <memory>
+#include <iostream>
 
 template <typename T>
 struct Node {
@@ -23,6 +24,14 @@ Node<T>* list_insert_after(Node<T>* node, const T& value)
     node->next =
         std::make_unique<Node<T>>(value, std::move(node->next));
     return node->next.get();
+}
+
+template <typename T>
+void list_delete_after(Node<T>* node)
+{
+    Node<T>* temp = node;
+    temp = temp->next.get();
+    node->next = std::unique_ptr<Node<T>>(std::move(temp->next));
 }
 
 template <typename T, typename F>
@@ -45,4 +54,5 @@ std::vector<T> list_to_vector(const Node<T>& node)
     return v;
 }
 
-#endif  // __list__
+#endif  // __Elist__
+
